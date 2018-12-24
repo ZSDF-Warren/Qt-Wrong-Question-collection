@@ -17,7 +17,9 @@ void MainWindow::on_pushButton_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("打开文件"), "C:\\Users\\Lenovo\\Desktop", tr("*.*"));
     if(fileName.isNull())
+    {
         return;
+    }
     openExcel(fileName);
 }
 
