@@ -1,5 +1,7 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include"QDebug"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,12 +17,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("打开文件"), "C:\\Users\\Lenovo\\Desktop", tr("*.*"));
+	qDebug() << "this is debug";
+	QString fileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("打开文件"), "C:\\Users\\Lenovo\\Desktop", tr("*.*"));
     if(fileName.isNull())
     {
         return;
     }
     openExcel(fileName);
+	qDebug() << "this is debug" ;
 }
 
 void MainWindow::openExcel(QString fileName)
