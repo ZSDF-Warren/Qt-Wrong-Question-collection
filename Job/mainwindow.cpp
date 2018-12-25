@@ -1,6 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include"QDebug"
+#include <QDebug>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -17,14 +17,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-	qDebug() << "this is debug";
-	QString fileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("打开文件"), "C:\\Users\\Lenovo\\Desktop", tr("*.*"));
+    QString fileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("打开文件"), "C:\\Users\\Lenovo\\Desktop", tr("*.*"));
     if(fileName.isNull())
     {
         return;
     }
     openExcel(fileName);
-	qDebug() << "this is debug" ;
 }
 
 void MainWindow::openExcel(QString fileName)
@@ -41,13 +39,13 @@ void MainWindow::openExcel(QString fileName)
     QList<QList<QVariant>> res;
     if (sheet_count > 0)
     {
-        QAxObject *work_sheet = work_book->querySubObject("Sheets(int)", 1);
-
-        QVariant var = readAll(work_sheet);
-
-        castVariant2ListListVariant(var, res);
+        for(int i = 1; i <= sheet_count; i++)
+        {
+            QAxObject *work_sheet = work_book->querySubObject("Sheets(int)", i);//读取所有sheet
+            QVariant var = readAll(work_sheet);
+            castVariant2ListListVariant(var, res);
+        }
     }
-
     work_book->dynamicCall("Close(Boolean)", false);
     excel.dynamicCall("Quit(void)");
 }
